@@ -10,7 +10,7 @@ docker run --rm -i -t -p 8080:8080 proxy-server
 
 
 
-##### Example Rest Call Request For Restful Ws
+#### Example Rest Call Request For Restful Ws
 
 **uri** : Url for restful ws <br/>
 **httpMethod**: Http Method like GET, POST, PUT etc.<br/>
@@ -26,7 +26,7 @@ docker run --rm -i -t -p 8080:8080 proxy-server
     "parameters": null
 
 
-##### Example Rest Call Request For Soap Ws
+#### Example Rest Call Request For Soap Ws
 
 **uri** : Url for restful ws <br/>
 **requestBody**: Raw request body if exist <br/>
