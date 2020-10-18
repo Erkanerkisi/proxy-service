@@ -1,6 +1,7 @@
 package com.erkan.ws.controller;
 
-import com.erkan.ws.model.GenericRequest;
+import com.erkan.ws.model.RestRequest;
+import com.erkan.ws.model.SoapRequest;
 import com.erkan.ws.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,12 @@ public class ApiController {
     }
 
     @PostMapping(value = "/callRestService")
-    ResponseEntity<String> callRestServiceController(@RequestBody GenericRequest genericRequest){
-        return apiService.callRestService(genericRequest);
+    ResponseEntity<String> callRestServiceController(@RequestBody RestRequest restRequest){
+        return apiService.callRestService(restRequest);
+    }
+
+    @PostMapping(value = "/callSoapService")
+    ResponseEntity<String> callSoapServiceController(@RequestBody SoapRequest soapRequest){
+        return apiService.callSoapService(soapRequest);
     }
 }

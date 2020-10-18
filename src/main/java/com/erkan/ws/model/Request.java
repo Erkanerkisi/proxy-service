@@ -1,37 +1,18 @@
 package com.erkan.ws.model;
 
-
 import java.util.Map;
 
-public class GenericRequest {
+public class Request {
     private String uri;
-    private String httpMethod;
     private Map<String,String> headers;
     private String requestBody;
-    private Map<String, ?> parameters;
-
-    public Map<String, ?> getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(Map<String, ?> parameters) {
-        this.parameters = parameters;
-    }
 
     public String getUri() {
         return uri;
     }
 
-    public void setUri(String url) {
-        this.uri = url;
-    }
-
-    public String getHttpMethod() {
-        return httpMethod;
-    }
-
-    public void setHttpMethod(String httpMethod) {
-        this.httpMethod = httpMethod;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public Map<String, String> getHeaders() {

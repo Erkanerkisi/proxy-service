@@ -1,6 +1,7 @@
 package com.erkan.ws.service;
 
-import com.erkan.ws.model.GenericRequest;
+import com.erkan.ws.model.RestRequest;
+import com.erkan.ws.model.SoapRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,23 +24,23 @@ public class ApiService {
         this.restTemplate = restTemplate;
     }
 
-    public ResponseEntity<String> callRestService(GenericRequest genericRequest) {
+    public ResponseEntity<String> callRestService(RestRequest restRequest) {
 
-        Assert.notNull(genericRequest.getUri(), "URI is required");
-        Assert.notNull(genericRequest.getHttpMethod(), "Http Method is required");
+        Assert.notNull(restRequest.getUri(), "URI is required");
+        Assert.notNull(restRequest.getHttpMethod(), "Http Method is required");
         //Set headers if exist
-        HttpHeaders headers = getHeaders(genericRequest.getHeaders());
+        HttpHeaders headers = getHeaders(restRequest.getHeaders());
         //Set Uri parameters for Get methods if exist any
-        Map<String, ?> param = getUriVariables(genericRequest.getParameters());
+        Map<String, ?> param = getUriVariables(restRequest.getParameters());
         //Set body and header
-        HttpEntity<String> entity = new HttpEntity<>(genericRequest.getRequestBody(), headers);
+        HttpEntity<String> entity = new HttpEntity<>(restRequest.getRequestBody(), headers);
         //call Rest Service
 
         System.out.println("Header And Body -> " + entity.toString());
 
         ResponseEntity<String> response = restTemplate.exchange(
-                genericRequest.getUri(),
-                getHttpMethod(genericRequest.getHttpMethod()),
+                restRequest.getUri(),
+                getHttpMethod(restRequest.getHttpMethod()),
                 entity,
                 String.class,
                 param);
@@ -66,5 +67,26 @@ public class ApiService {
     private Map<String, ?> getUriVariables(Map<String, ?> map) {
         if (map != null) return map;
         else return new HashMap<>();
+    }
+
+    public ResponseEntity<String> callSoapService(SoapRequest soapRequest) {
+        Assert.notNull(soapRequest.getUri(), "URI is required");
+        //Set headers if exist
+        HttpHeaders headers = getHeaders(soapRequest.getHeaders());
+        //Set body and header
+        HttpEntity<String> entity = new HttpEntity<>(soapRequest.getRequestBody(), headers);
+        //call Rest Service
+        ResponseEntity<String> response = null;
+        try{response = restTemplate.exchange(
+                soapRequest.getUri(),
+                HttpMethod.POST,
+                entity,
+                String.class);}
+        catch (Exception e){
+            System.out.println(e);
+        }
+        //Return Response
+        System.out.println(response);
+        return response;
     }
 }
