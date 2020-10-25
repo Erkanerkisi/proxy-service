@@ -77,12 +77,13 @@ public class ApiService {
         HttpEntity<String> entity = new HttpEntity<>(soapRequest.getRequestBody(), headers);
         //call Rest Service
         ResponseEntity<String> response = null;
-        try{response = restTemplate.exchange(
-                soapRequest.getUri(),
-                HttpMethod.POST,
-                entity,
-                String.class);}
-        catch (Exception e){
+        try {
+            response = restTemplate.exchange(
+                    soapRequest.getUri(),
+                    HttpMethod.POST,
+                    entity,
+                    String.class);
+        } catch (Exception e) {
             System.out.println(e);
         }
         //Return Response
